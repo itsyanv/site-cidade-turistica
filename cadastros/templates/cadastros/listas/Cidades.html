@@ -1,0 +1,41 @@
+{% extends 'index.html' %}
+
+{% load static %}
+
+{% block title %}
+<title>Cidades</title>
+{% endblock %}
+
+{% block container %}
+<h3>Cidades</h3>
+<hr>
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Cidade</th>
+                <th scope="col">Estado - UF</th>
+                <th scope="col">Opções</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cidade in object_list %}
+            <tr>
+                <th scope="row">{{ cidade.pk }}</th>
+                <td>{{ cidade.nmCidade }}</td>
+                <td>{{ cidade.estado.nmEstado }} - {{ cidade.estado.ufEstado }}</td>
+                <td>
+                    <a href="{% url 'editar-cidade' cidade.pk %}" class="btn btn-warning btn-sm" title="Editar"><i class="fas fa-edit"></i></a> |
+                    <a href="{% url 'excluir-cidade' cidade.pk %}" class="btn btn-danger btn-sm" title="Excluir"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3">Não foi encontrado registros.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
